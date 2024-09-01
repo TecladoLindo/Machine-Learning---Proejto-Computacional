@@ -1,5 +1,5 @@
 # O CÓDIGO NÃO ESTÁ RODANDO E EU N SEI PQ
-import cv2.destroyAllWindows()
+import cv2
 import mediapipe as mp
 
 # Inicializa captura de vídeo e o MediaPipe Face Mesh
