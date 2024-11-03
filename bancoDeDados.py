@@ -3,11 +3,11 @@ import pandas as pd
 import time
 from datetime import datetime
 
-# Conectar ao banco de dados SQLite
+#conecta ao bando de dados sqlite3
 conexao = sqlite3.connect("reconhecimento_facial.db")
 cursor = conexao.cursor()
 
-# Criar a tabela de reconhecimento facial (se ainda não existir)
+#tabela de reconhecimento facial
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS reconhecimento_facial (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,21 +31,15 @@ CREATE TABLE IF NOT EXISTS reconhecimento_facial (
 ''')
 conexao.commit()
 
-# Função para registrar dados de reconhecimento facial
+#funcao pra registrar dados de reconhecimento facial
 def registrar_reconhecimento(nome, landmarks):
     inicio = time.time()
-    # Simular o tempo de detecção (use dados reais em uma aplicação prática)
-    time.sleep(2)  # Exemplo de espera para simular detecção
-    
-    # Calcular o tempo de detecção
-    tempo_deteccao = time.time() - inicio
+    time.sleep(2)  #tempo de detecção
+    tempo_deteccao = time.time() - inicio #cálculo do tempo de detecção
     data_hora = datetime.now().isoformat()
 
-    # Transformar landmarks em um DataFrame do pandas
-    df_landmarks = pd.DataFrame(landmarks, columns=['x', 'y', 'z'])
-
-    # Obter a lista de valores dos landmarks
-    valores_landmarks = df_landmarks.values.flatten().tolist()
+    df_landmarks = pd.DataFrame(landmarks, columns=['x', 'y', 'z']) #transforma landmarcks em dataframes do pandas
+    valores_landmarks = df_landmarks.values.flatten().tolist() #lista de valores dos landmarks
     
     # Inserir os dados no banco de dados
     cursor.execute('''
@@ -70,7 +64,7 @@ def registrar_reconhecimento(nome, landmarks):
     conexao.commit()
     print(f"Dados de reconhecimento facial para {nome} registrados com sucesso.")
 
-# Exemplo de dados de landmarks
+#exemplos de landmarcks
 landmarks_exemplo = [
     {"x": 0.5, "y": 0.5, "z": 0.1},
     {"x": 0.6, "y": 0.6, "z": 0.2},
@@ -87,8 +81,8 @@ landmarks_exemplo = [
     {"x": 1.7, "y": 1.7, "z": 1.3},
 ]
 
-# Exemplo de chamada da função
+#registrar usuário
 registrar_reconhecimento("João Silva", landmarks_exemplo)
 
-# Fechar a conexão com o banco de dados ao final
+
 conexao.close()
